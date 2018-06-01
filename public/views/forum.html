@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index.html</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrapLogin.min.css">
+    <link rel="stylesheet" href="/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/Dark-NavBarLogin.css">
+    <link rel="stylesheet" href="/css/Login-Form-DarkForum.css">
+    <link rel="stylesheet" href="/css/stylesLogin.css">
+    <link rel="stylesheet" href="/img/star-sky.jpg">
+
+    <style>
+
+    #textInp{
+        width: 80%;
+        padding: .5em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 6px;
+        color: #000;
+        font-family: 'Oswald';
+        font-size: 12px;
+        text-decoration: gold;
+        border: gold;
+    }
+
+    #submitting{
+        width: 10%;
+        background-color: #00ff00;
+        padding: .5em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 6px;
+        color: #fff;
+        font-family: 'Oswald';
+        font-size: 12px;
+        text-decoration: gold;
+        border: gold;
+    }
+    #userArea{
+        padding: .5em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 6px;
+        color: #00cc00;
+        font-family: 'Oswald';
+        font-size: 16px;
+        text-decoration: gold;
+        border: gold;
+        text-align: center
+    }
+    #textArea{
+        padding: .5em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 6px;
+        color: #000;
+        font-family: 'Oswald';
+        font-size: 16px;
+        text-decoration: gold;
+        border: gold;
+    }
+
+    .center{
+    margin: auto;
+    padding: 10px;
+    position: relative;
+    width: 80%
+    }
+
+    
+    </style>
+
+    
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button" style="height:80px;background-color:#37434d;color:#ffffff;">
+            <div class="container-fluid"><a class="navbar-brand" href="#"><i class="fa fa-globe"></i>&nbsp;OutdoorMessage</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                    class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                                    <li class="nav-item" role="presentation"><a class="nav-link active" href="login" style="color:#ffffff;"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+                                    <li class="nav-item" role="presentation"><a class="nav-link active" href="forum" style="color:#ffffff;"><i class="fa fa-user-circle-o"></i><mark>Forum</mark></a></li>
+                                    <li class="nav-item" role="presentation"><a class="nav-link active" href="calendar" style="color:#ffffff;"><i class="fa fa-calendar"></i>&nbsp;Calendar</a></li>
+                                    <li class="nav-item" role="presentation"><a class="nav-link active" href="helpDesk" style="color:#ffffff;"><i class="fa fa-gear"></i>&nbsp;Help Desk</a></li>
+                                    <li class="nav-item" role="presentation"><a class="nav-link active" href="loggedOut" style="color:#ffffff;" id="logOutBtn"><i class="fa fa-sign-out"></i>&nbsp;Log out</a></li>
+                    </ul>
+            </div>
+        </div>
+        </nav>
+    </div>
+    
+    <div class="login-dark">
+            
+        <div class="center">
+                <textarea readonly class="" id="userArea" rows="24" cols="20"></textarea>
+                <textarea readonly class="textClass" id="textArea" rows="24" cols="100"></textarea>
+                <form class="sendingMessage" id="messageForm">
+                <input id="textInp" type="text" name="textInput" placeholder="Input message">
+                <input id="submitting" type="submit" value="Submit">
+                </form>
+
+
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src =https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.dev.js></script>
+
+
+    <script>
+    let socket = io.connect("http://localhost:3000/");
+
+    
+$("#submitting").click(function(event){
+    event.preventDefault();
+    var userText = textInp.value;
+
+    socket.emit("emitDataToServer",{"text":userText });
+})
+
+    $("#logOutBtn").click(function(event){
+        event.preventDefault();
+        var disconnectText = "has diconnected"
+        socket.emit("disconnectUser",{"text":disconnectText});
+        window.location.href ="/loggedOut"
+
+    })
+
+    socket.on("allMessages",function(data){
+        var msgArray = []
+        var index = data.arrayMessage.length;
+            data.arrayMessage.forEach(msg => {
+                msgArray.push(msg);
+            });
+            console.log(msgArray)
+
+             $("#textArea").text(msgArray.join(""))
+    })
+
+        socket.on("allUsers",function(data){
+        var userArray = []
+        var index = data.arrayUser.length;
+            data.arrayUser.forEach(user => {
+                userArray.push(user);
+            });
+            console.log(userArray)
+
+             $("#userArea").text(userArray.join(""))
+    })
+    
+    </script>
+
+</body>
+
+</html>
