@@ -1,5 +1,5 @@
 
 
-exports.user = "daniel.boebel@gmail.com";
-exports.pass = "Liverpool9"
+exports.user = "sunrisehcnewsletter@gmail.com";
+exports.pass = "Sunrise1234";
 
