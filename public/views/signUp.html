@@ -31,39 +31,9 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
+    <script type="text/javascript" src="/js/signUp.js">
 
-
-    $("#signUpBtn").click(function(){
-        
-        event.preventDefault();
-
-        
-        var firstname = firstName.value;
-        var lastname = lastName.value;
-        var username = userEmail.value;
-        var password = userPass.value;
-
-        var data = {
-            "firstname" : firstname,
-            "lastname" : lastname,
-            "username" : username,
-            "password" : password
-        }
-
-            $.ajax({
-        type: "POST",
-        url: "sign-up",
-        data: data
-      }).done(function(response) {
-        if(response == true){
-            document.getElementById("formSignUp").reset();
-            window.location.href ="http://localhost:3000/"
-        }
-      });
-
-    });
-    
+   
     </script>
 </body>
 

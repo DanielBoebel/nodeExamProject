@@ -48,7 +48,6 @@ var arrayUsers = [];
 //User object for later use
 let user = {}
 
-exports.isLoggedIn = false;
 
 exports.sessionLogin = function(){
     return session.user
@@ -181,7 +180,7 @@ app.post("/logged-in", function(req, res) {
         if(usernamePick != undefined){
             bcrypt.compare(req.body.password, usernamePick.password).then(function(resbcrypt) {
                 if(resbcrypt = true){
-                isLoggedIn = true;
+                exports.isLoggedIn = true;
                 user.password = usernamePick.password;
                 req.session.user = user;
                 arrayUsers.push(usernameGlobal+"\n")
