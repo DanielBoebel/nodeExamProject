@@ -6,21 +6,23 @@
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
     "ejs": "^1.0.0",
     "express": "^4.16.3",
     "express-session": "^1.7.6",
     "googleapis": "^27.0.0",
+    "mocha": "^5.2.0",
     "moment": "^2.22.2",
     "mongodb": "^2.2.33",
     "nodemailer": "^4.6.4",
-    "passport-local": "^1.0.0",
-    "socket.io": "^2.1.0",
-    "sweetalert2": "^7.21.1",
-    "time-stamp": "^2.0.0"
+    "socket.io": "^2.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "moch": "^5.2.0",
+    "chai": "^4.1.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node app.js"
   },
   "author": "DanielCB",

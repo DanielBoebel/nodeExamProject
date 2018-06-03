@@ -1,9 +1,14 @@
+//Node js framework
 var express = require('express');
+
+//Setting a session for the user
 var session = require('express-session');
+
+//For sending emails
 const nodemailer = require('nodemailer');
-var timestamp = require('time-stamp');
+
+//Using moment to set timestamps
 var moment = require('moment')
-var swal = require('sweetalert2')
 
 //Hashing password package
 var bcrypt = require('bcrypt')
@@ -43,8 +48,16 @@ var arrayUsers = [];
 //User object for later use
 let user = {}
 
+exports.isLoggedIn = false;
 
+exports.sessionLogin = function(){
+    return session.user
+}
 
+//function for testing
+/*exports.userLogin = function(){
+    return false;
+}*/
 
 app.get("/",(req,res) =>{
     return res.sendFile(__dirname+"/public/views/index.html")
@@ -168,6 +181,7 @@ app.post("/logged-in", function(req, res) {
         if(usernamePick != undefined){
             bcrypt.compare(req.body.password, usernamePick.password).then(function(resbcrypt) {
                 if(resbcrypt = true){
+                isLoggedIn = true;
                 user.password = usernamePick.password;
                 req.session.user = user;
                 arrayUsers.push(usernameGlobal+"\n")
@@ -177,21 +191,7 @@ app.post("/logged-in", function(req, res) {
                  })
 
                  
-        /*if(usernamePick.password = user.password){
-            req.session.user = user;
-            arrayUsers.push(usernameGlobal+"\n")
-            response = true;
-            res.json(response)
-            
-        }else{
-            response = false;
-            res.json(response)
-        
-             }*/
         }
-
-         //response = true;
-         //res.json(response)
     
         db.close()
         });
