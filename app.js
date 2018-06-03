@@ -58,16 +58,7 @@ exports.sessionLogin = function(){
     return false;
 }*/
 
-app.get("/",(req,res) =>{
-    return res.sendFile(__dirname+"/public/views/index.html")
-})
 
-
-app.get("/loggedOut",(req,res)=>{
-    req.session.destroy()
-    
-    return res.sendFile(__dirname+"/public/views/index.html")
-})
 
 
 
@@ -103,12 +94,6 @@ app.post("/public/views/sign-up",(req,res)=>{
     response = true;
     res.json(response)
 
-})
-
-
-
-app.get("/public/views/signUp",(req,res) =>{
-    return res.sendFile(__dirname+"/public/views/signUp.html")
 })
 
 app.post("/help-request", function(req,res){
@@ -197,7 +182,20 @@ app.post("/logged-in", function(req, res) {
     });
 });
 
+    app.get("/",(req,res) =>{
+        return res.sendFile(__dirname+"/public/views/index.html")
+    })
 
+
+    app.get("/loggedOut",(req,res)=>{
+        req.session.destroy()
+        
+        return res.sendFile(__dirname+"/public/views/index.html")
+    })
+
+    app.get("/public/views/signUp",(req,res) =>{
+        return res.sendFile(__dirname+"/public/views/signUp.html")
+    })
 
     app.get("/login", (req,res)=>{
 
